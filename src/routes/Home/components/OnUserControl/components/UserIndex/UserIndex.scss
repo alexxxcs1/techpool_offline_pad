@@ -1,0 +1,75 @@
+.UserIndexBox{
+    width: 100%;
+    height: 100%;
+    .PageTitle{
+        width: 231px;
+        height: 79px;
+        background-size: 100% 100%;
+        font-size: 31px;
+        font-weight: bold;
+        margin: -20px;
+    }
+    .InfoBox{
+        width: 610px;
+        height: 412px;
+        background-size: 100% 100%;
+
+        .InfoDetial{
+            width: 80%;
+            height: 76%;
+
+            .HeadShot{
+                width: 80px;
+                height: 80px;
+                background: #f1f1f1;
+                border-radius: 50%;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                }
+            }
+            .UserName{
+                font-size: 20px;
+                color:#dba169;
+                font-weight: bold;
+                margin: 10px 0px;
+            }
+            .UserTitle{
+                width: 80px;
+                font-size: 15px;
+                height: 25px;
+                background: linear-gradient(#f8d8c3 1%,#efcab0 2%,#e4b484 49%,#dba169 50%,#f6c5b1 99%,#f8cdc6 100%);
+                box-shadow: #bb7a3c 0 0 0 1px inset,#fff 0 0 0 2px inset;
+                border-radius: 13px;
+                color: #fff;
+            }
+            .InfoBox{
+                width: 400px;
+                height: 150px;
+                // box-shadow: #bb7a3c 0 0 0 1px;
+                // background: #000;
+
+                .BoxRow{
+                    width: 100%;
+                    height: 40px;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .InfoData{
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    flex-wrap: wrap;
+                    .DataBox{
+                        width: calc(100% / 3);
+                        height: 50%;
+                        font-size: 20px;
+
+                        div:nth-child(1){
+                            color:#dba169
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

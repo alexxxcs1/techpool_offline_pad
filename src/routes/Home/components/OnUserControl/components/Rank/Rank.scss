@@ -1,0 +1,79 @@
+.RankBox {
+    width: 100%;
+    height: 100%;
+
+    .PageTitle {
+        width: 231px;
+        height: 79px;
+        background-size: 100% 100%;
+        font-size: 31px;
+        font-weight: bold;
+        margin: -20px;
+    }
+
+    .RankBox {
+        width: 663px;
+        height: 658px;
+        background-size: 100% 100%;
+
+        .RankDetial {
+            width: 80%;
+            height: 76%;
+        }
+
+        .Table {
+            width: 90%;
+            height: 90%;
+            
+            .TableBody{
+                width: 100%;
+                height: calc(100% - 32px);
+                overflow: auto;
+            }
+            .TableRow {
+                width: 100%;
+                height: 32px;
+                min-height: 32px;
+                flex-shrink: 0;
+                margin:  5px 0;
+            }
+            .TableColumn{
+                height: 100%;
+                width: 25%;
+                
+                background-repeat: no-repeat;
+                flex-grow: 1;
+                flex-shrink: 0;
+                .rowhead{
+                    width: 111px;
+                    height: 100%;
+                    font-size: 18px;
+                    font-weight: bold;
+                    flex-shrink: 0;
+                    background-size: 100% 100%;
+                }
+                .rowchild{
+                    width: 100%;
+                    height: 100%;
+                    font-size: 18px;
+                    font-weight: bold;
+                    flex-shrink: 0;
+                    background-size: 100% 100%;
+                    
+                }
+            }
+        }
+    }
+
+    .ChangeButton {
+        width: 258px;
+        height: 54px;
+        border-radius: 27px;
+        background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+        box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+    }
+}

@@ -1,0 +1,96 @@
+.OnUserControlBox {
+    width: 100%;
+    height: 100%;
+
+    .NavTop {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 169px;
+        // background: #333;
+        top: 10;
+        pointer-events: none;
+
+        .LogoBox {
+            width: 100%;
+            height: 74px;
+
+            .Logo {
+                width: 731px;
+            }
+        }
+
+        .HandleGroupBox {
+            width: 731px;
+            height: calc(100% - 74px);
+
+            // background: #000;
+            .HandleButtonBox {
+                width: 50%;
+                height: 100%;
+
+                .button {
+                    pointer-events: all;
+                    width: 63px;
+                    height: 63px;
+                    margin: 0 15px;
+                }
+            }
+        }
+    }
+
+    .DetialBox {
+        width: 100%;
+        height: 100%;
+
+        .ButtonGroup{
+            width: 200px;
+            margin-top: 499px;
+            .LinkButton{
+                width: 200px;
+                height: 68px;
+                background-size: 100% 100%;
+                font-size: 27px;
+                font-weight: bold;
+                margin-bottom: 9px;
+                background-repeat: no-repeat;
+                animation: SlideIn 0.5s backwards;
+                animation-delay: calc(var(--delay) * 0.1s)
+            }
+            & .LinkButton:nth-child(1){
+                --delay: 0
+            }
+            & .LinkButton:nth-child(2){
+                --delay: 1
+            }
+            & .LinkButton:nth-child(3){
+                --delay: 2
+            }
+            
+        }
+        @keyframes SlideIn {
+            0%{
+                opacity: 0;
+                transform: translateX(-100%)
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0%)
+            }
+        }
+    }
+
+    .Background {
+        width: 100%;
+        height: 100%;
+        background: #f1f1f1;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: 50% 50% !important;
+    }
+
+}
