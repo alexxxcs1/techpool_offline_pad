@@ -10,13 +10,16 @@ import returnindex from "assets/returnindex.png";
 import userindexbutton from "assets/userindex.png";
 import slogan from "assets/slogan.png";
 import bg from "assets/bg.png";
+import bgNoslogan from "assets/bg-noslogan.png";
 import button from "assets/button.png";
 
+const bggroup = [bg, bgNoslogan];
 
 export class OnUserControl extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      bgStatus: 0,
       stageStatus: null
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -39,6 +42,7 @@ export class OnUserControl extends Component {
     switch (this.state.stageStatus) {
       default:
       case null:
+        this.state.bgStatus = 0;
         return (
           <div
             className={[
@@ -69,12 +73,16 @@ export class OnUserControl extends Component {
         );
         break;
       case "userindex":
+        this.state.bgStatus = 1;
         return <UserIndex />;
       case "rank":
+        this.state.bgStatus = 1;
         return <Rank />;
-      case 'rule':
-        return <Rule />
+      case "rule":
+        this.state.bgStatus = 1;
+        return <Rule />;
     }
+    this.setState(this.state);
   }
   HandleCustomRoute(route) {
     this.state.stageStatus = route;
@@ -105,12 +113,16 @@ export class OnUserControl extends Component {
                 "childcenter",
                 "childcontentstart"
               ].join(" ")}>
-              {this.state.stageStatus != null ? <img
-                src={returnindex}
-                className={style.button}
-                onClick={this.HandleCustomRoute.bind(this, null)}
-                alt=""
-              />:''}
+              {this.state.stageStatus != null ? (
+                <img
+                  src={returnindex}
+                  className={style.button}
+                  onClick={this.HandleCustomRoute.bind(this, null)}
+                  alt=""
+                />
+              ) : (
+                ""
+              )}
             </div>
             <div
               className={[
@@ -118,12 +130,16 @@ export class OnUserControl extends Component {
                 "childcenter",
                 "childcontentend"
               ].join(" ")}>
-              {this.state.stageStatus!= 'userindex'?<img
-                src={userindexbutton}
-                className={style.button}
-                onClick={this.HandleCustomRoute.bind(this, "userindex")}
-                alt=""
-              />:''}
+              {this.state.stageStatus != "userindex" ? (
+                <img
+                  src={userindexbutton}
+                  className={style.button}
+                  onClick={this.HandleCustomRoute.bind(this, "userindex")}
+                  alt=""
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
           {/* 顶部导航按钮 ↑ */}
@@ -142,7 +158,7 @@ export class OnUserControl extends Component {
         {/* 背景图片 ↓ */}
         <div
           className={style.Background}
-          style={{ background: "url(" + bg + ")" }}
+          style={{ background: "url(" + bggroup[this.state.bgStatus] + ")" }}
         />
       </div>
     );

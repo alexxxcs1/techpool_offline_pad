@@ -1,0 +1,124 @@
+.BeginSnatchBox {
+
+    .TipsRow {
+        font-size: 20px;
+    }
+
+    .ClickTips {
+        height: 60px;
+        position: relative;
+
+        .Eff {
+            position: absolute;
+            top: 15px;
+            left: 12px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: #000 0 0 0 1px inset;
+            animation: scaleAni 0.2s infinite;
+
+            &::after {
+                position: absolute;
+                content: '';
+                width: 16px;
+                height: 16px;
+                top: -2px;
+                left: -2px;
+                border-radius: 50%;
+                box-shadow: #000 0 0 0 1px inset;
+                animation: scaleAni 0.2s infinite;
+
+            }
+
+            &::before {
+                position: absolute;
+                content: '';
+                width: 20px;
+                height: 20px;
+                top: -4px;
+                left: -4px;
+                border-radius: 50%;
+                box-shadow: #000 0 0 0 1px inset;
+                animation: scaleAni 0.2s infinite;
+
+            }
+        }
+
+        img {
+            position: relative;
+            z-index: 2;
+            width: 45px;
+            animation: scaleAni 0.1s infinite;
+        }
+    }
+
+    .wardrumBox {
+        width: 575px;
+        height: 616px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: relative;
+
+        .EffSound {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            pointer-events: none;
+
+            .EffText {
+                width: 150px;
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                top: var(--posy);
+                left: var(--posx);
+                opacity: 0;
+                animation: soudnEff 0.5s forwards;
+            }
+        }
+
+        .drum {
+            width: 273px;
+            height: 273px;
+            // background: rgba($color: #000000, $alpha: 0.6);
+            border-radius: 50%;
+            margin-top: 6px;
+            margin-right: 28px;
+        }
+    }
+
+    @keyframes soudnEff {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) scale(0.5)
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-50%) scale(1.5)
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) scale(0.5)
+        }
+    }
+}
+
+@keyframes scaleAni {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

@@ -1,10 +1,10 @@
 .AlertBox{
     width: 400px;
-    
+    position: relative;
     background: #eee;
     box-shadow: rgba($color: #eee, $alpha: .4) 0 0 0 22px;
     border-radius: 7px 14px;
-
+    z-index: 99;
     .AlertInfo{
         width: 90%;
         margin-top: 16px;

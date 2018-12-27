@@ -1,0 +1,153 @@
+.resultErro {
+    filter: grayscale(100%);
+}
+
+.ResultBox {
+    width: 265px;
+    height: 198px;
+    background: #fff;
+    box-shadow: rgba($color: #fff, $alpha: 0.5) 0 0 0 10px;
+
+    .TitleBox {
+        width: 159px;
+        height: 47px;
+        margin-top: 12px;
+        position: relative;
+
+        .Tittleleft {
+            // width: 65px;
+            // height: 47px;
+            z-index: 1;
+            position: absolute;
+            width: 0;
+            height: 0;
+
+            left: 0px;
+            top: 9px;
+            border-top: solid #f66060 24px;
+            border-right: solid #f66060 35px;
+            border-bottom: solid #f66060 24px;
+            border-left: solid transparent 9px;
+            transform: translateX(-31px);
+        }
+
+        .TittleValue {
+
+            width: 100%;
+            height: 100%;
+            background: #f66060;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: #333 0 0px 30px 0px;
+            font-size: 22px;
+            color: #fff;
+        }
+
+        .Tittleright {
+            // width: 65px;
+            // height: 47px;
+            z-index: 1;
+            position: absolute;
+            width: 0;
+            height: 0;
+
+            right: 0px;
+            top: 9px;
+            border-top: solid #f66060 24px;
+            border-right: solid transparent 9px;
+            border-bottom: solid #f66060 24px;
+            border-left: solid #f66060 35px;
+            transform: translateX(31px);
+        }
+    }
+
+    .ResultValue {
+        width: 100%;
+        height: calc(100% - 47px);
+        font-size: 31px;
+        font-weight: bold;
+        color: #f66060;
+        font-size: 22px;
+    }
+}
+
+.ReturnButton {
+    margin: 20px;
+    width: 150px;
+    height: 36px;
+    font-size: 22px;
+    background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+    box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+    border-radius: 23px;
+    color: #fff;
+}
+
+.AnswerQuestionBox {
+    width: 663px;
+    height: 450px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+    .QuestionDetial {
+        width: 80%;
+        height: 76%;
+
+        .AnswerTitle {
+            width: 100%;
+            flex-shrink: 0;
+
+            .Title {
+                width: 90%;
+                min-height: 100px;
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+
+        .AnswerBoxGroup {
+            width: 90%;
+            // flex-grow: 1;
+            flex-wrap: wrap;
+            color: #000;
+
+            .OptionBox {
+                width: 50%;
+                height: 120px;
+                // background: #000;
+                font-size: 24px;
+
+                .Key {
+                    width: 38px;
+                    height: 100%;
+                }
+
+                .KeyValue {
+                    width: calc(100% - 38px);
+                    height: 100%;
+                }
+            }
+
+            .ActOption {
+                color: #d76f00;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.SubmitButton {
+    width: 161px;
+    height: 46px;
+    font-size: 34px;
+    background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+    box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+    border-radius: 23px;
+    color: #fff;
+}
+
+.unAct {
+    filter: grayscale(100%);
+}

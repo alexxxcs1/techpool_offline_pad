@@ -1,0 +1,56 @@
+.SelectQuestionBox {
+    width: 595px;
+    height: 367px;
+    background: #fff;
+    border-radius: 17px;
+    box-shadow: rgba($color: #fff, $alpha: 0.4) 0 0 0 17px;
+    .SelectTitle {
+        width: 100%;
+        font-size: 37px;
+        color: #b3b3b3;
+    }
+
+    .QuestionGroup {
+        width: 560px;
+        flex-wrap: wrap;
+
+        .QuestionButton {
+            width: calc(100% / 5 - 24px);
+            background: #000;
+            height: 56px;
+            margin: 11px 12px;
+            background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+            box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+            border-radius: 13px;
+            align-items: baseline;
+            color: #fff;
+
+            span:nth-child(1) {
+                font-size: 48px;
+            }
+
+            span:nth-child(2) {
+                font-size: 17px;
+            }
+
+        }
+        .ActQuestionButton{
+            box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset,#bb7a3c 0 0 10px 2px;
+        }
+    }
+
+    .NextButton {
+        width: 134px;
+        height: 38px;
+        background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+        box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+        border-radius: 13px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 43px;
+    }
+    .unActButton{
+        filter: grayscale(100%);
+    }
+}
