@@ -1,0 +1,79 @@
+.RaterGradeBox {
+    width: 100%;
+    height: 100%;
+
+    .PageTitle {
+        width: 335px;
+        height: 79px;
+        background-size: 100% 100%;
+        font-size: 31px;
+        font-weight: bold;
+        word-break: break-all;
+    }
+
+    .DetialBox {
+        width: 663px;
+        height: 389px;
+        padding: 50px 0;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+
+        .BaseRow {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .Title {
+            width: 264px;
+            font-size: 25px;
+        }
+
+        .ScoreButtonGroup {
+            width: 264px;
+
+            .ScoreButton {
+                width: 33px;
+                height: 33px;
+                border-radius: 5px;
+                background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+                box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+                font-size: 18px;
+                color: #fff;
+                margin: 0 5px;
+                filter: grayscale(100%);
+            }
+
+            .ActScoreButton {
+                filter: none;
+            }
+        }
+
+        .UserRegion {
+            margin: 0 50px;
+            width: auto;
+            font-size: 19px;
+            background-size: 100% 100%;
+            padding: 8px 31px;
+            font-weight: bold;
+        }
+
+        .UserName {
+            margin: 0 50px;
+            width: auto;
+            font-size: 19px;
+            background-size: 100% 100%;
+            padding: 8px 31px;
+            font-weight: bold;
+        }
+    }
+
+    .SubmitButton {
+        width: 175px;
+        height: 49px;
+        border-radius: 25px;
+        background: linear-gradient(#f8d8c3 1%, #efcab0 2%, #e4b484 49%, #dba169 50%, #f6c5b1 99%, #f8cdc6 100%);
+        box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset;
+        font-size: 30px;
+        color: #fff;
+    }
+}

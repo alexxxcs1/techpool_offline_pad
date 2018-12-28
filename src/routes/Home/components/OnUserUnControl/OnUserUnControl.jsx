@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import style from "./OnUserUnControl.scss";
+import PropTypes from "prop-types";
+import LOGO from "assets/LOGO.png";
 
 import SnatchAnswer from "./components/SnatchAnswer";
+import RotationAnswer from "./components/RotationAnswer";
+import RaterGrade from "./components/RaterGrade";
+
 
 import bg from "assets/bg.png";
 import bgNoslogan from "assets/bg-noslogan.png";
@@ -19,6 +24,12 @@ export class OnUserUnControl extends Component {
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.customRoute = this.customRoute.bind(this);
+    this.HandleCustomRoute = this.HandleCustomRoute.bind(this);
+  }
+  getChildContext() {
+    return {
+      HandleCustomRoute: this.HandleCustomRoute
+    };
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -43,7 +54,17 @@ export class OnUserUnControl extends Component {
       case "snatchanswer":
         this.state.bgStatus = 1;
         return <SnatchAnswer />;
+      case 'rotationanswer':
+        this.state.bgStatus = 1;
+        return <RotationAnswer />;
+      case 'ratergrade':
+        this.state.bgStatus = 1;
+        return <RaterGrade />
     }
+    this.setState(this.state);
+  }
+  HandleCustomRoute(route){
+    this.state.stageStatus = route;
     this.setState(this.state);
   }
   render() {
@@ -54,6 +75,20 @@ export class OnUserUnControl extends Component {
           "childcenter",
           "childcolumn"
         ].join(" ")}>
+        <div
+          className={[
+            style.NavTop,
+            "childcenter",
+            "childcolumn",
+            "childcontentstart"
+          ].join(" ")}>
+          {/* 顶部导航栏 */}
+          <div className={[style.LogoBox, "childcenter"].join(" ")}>
+            <img src={LOGO} className={style.Logo} alt="" />
+          </div>
+          {/* 顶部LOGO ↑ */}
+        </div>
+
         <div
           className={[style.DetialBox, "childcenter", "childcolumn"].join(" ")}>
           {this.customRoute()}
@@ -68,4 +103,7 @@ export class OnUserUnControl extends Component {
     );
   }
 }
+OnUserUnControl.childContextTypes = {
+  HandleCustomRoute: PropTypes.func
+};
 export default OnUserUnControl;

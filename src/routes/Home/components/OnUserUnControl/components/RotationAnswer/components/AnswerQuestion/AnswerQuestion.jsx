@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import style from "./AnswerQuestion.scss";
 import PropTypes from "prop-types";
 import LongScroll from "assets/LongScroll.png";
+import ShortScroll from "assets/ShortScroll.png";
 import DarkBox from "components/DarkBox";
 
 export class AnswerQuestion extends Component {
@@ -38,7 +39,7 @@ export class AnswerQuestion extends Component {
     this.setState(this.state);
   }
   returnToSnatch(){
-      this.context.HandleSnatchAnswerRoute(null);
+      // this.context.HandleSnatchAnswerRoute(null);
   }
   render() {
     return [
@@ -60,12 +61,9 @@ export class AnswerQuestion extends Component {
           </div>
           
         </div>
-
-        {/* 
-        <div className={[style.ReturnButton,'childcenter'].join(' ')} onClick={this.returnToSnatch}>
-            返回去抢答
-        </div> 
-        */}
+        {/* <div className={[style.ReturnButton,'childcenter'].join(' ')} onClick={this.returnToSnatch}>
+            返回
+        </div> */}
 
       </DarkBox>:''}
         <div
@@ -131,6 +129,9 @@ export class AnswerQuestion extends Component {
         ].join(" ")}
         onClick={this.state.selected == null ? "" : this.submit}>
         提交
+      </div>,
+      <div className={[style.UserScore,'childcenter','childcolumn'].join(' ')} style={{backgroundImage:'url('+ShortScroll+')'}}>
+        你当前的得分为:999999999分
       </div>
     ];
   }
@@ -138,6 +139,7 @@ export class AnswerQuestion extends Component {
 AnswerQuestion.contextTypes = {
   SetAlertOption: PropTypes.func,
   HandleSnatchAnswerRoute: PropTypes.func,
-  QuestionID: PropTypes.number
+  QuestionID: PropTypes.number,
+  HandleCustomRoute:PropTypes.func
 };
 export default AnswerQuestion;
