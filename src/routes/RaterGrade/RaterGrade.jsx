@@ -1,30 +1,89 @@
 import React, { Component } from "react";
 import style from "./RaterGrade.scss";
+import LoadingBox from "components/LoadingBox";
 
 import PropTypes from "prop-types";
 import button from "assets/button.png";
 import LongScroll from "assets/LongScroll.png";
 import tablechild from "assets/tablechild.png";
+import {api} from 'common/app'
 
 export class RaterGrade extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        id:null,
+        data:null,
         score:[null,null,null,null]
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.HandleScoreClick = this.HandleScoreClick.bind(this);
+    this.submitScore = this.submitScore.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
   }
   componentDidMount() {
     this.refreshProps(this.props);
+    this.connectWebSocket();
   }
-  refreshProps(props) {}
+  refreshProps(props) {
+      this.state.id = props.match.params.id;
+      this.setState(this.state);
+  }
   HandleScoreClick(index,score){
     this.state.score[index] = score;
     this.setState(this.state);
+  }
+  connectWebSocket(){
+    let connection = new WebSocket('ws://192.168.1.12:8282');
+    this.state.ws_connection = connection;
+    this.setState(this.state);
+    let self = this;
+    //open connection
+    connection.onopen = function () {
+        var strf = {"type":"judge","action":"login","judgeid":self.state.id};//字符串
+        connection.send(JSON.stringify(strf)); 
+    };
+    //onerror
+    connection.onerror = function (error) {
+      console.log('WebSocket Error ' + error);
+    };
+    
+    //to receive the message from server
+    connection.onmessage = function (e) {
+      console.log('Server: ' + e.data);
+      let data = JSON.parse(e.data);
+      switch (data.action) {
+        case 'judgeStart':
+            self.state.data = data.result;
+            self.setState(self.state);
+            break;
+        case 'unControl':
+            self.state.data = null;
+            self.setState(self.state);
+        default:
+          break;
+      }
+    };
+    
+  }
+  submitScore(){
+    let score = 0;
+    for (let z = 0; z < this.state.score.length; z++) {
+        score += this.state.score[z];
+    }
+    api.RaterSetGrade(this.state.data.id,this.state.id,score).then(res=>{
+        console.log(res);
+        if (res.code==200) {
+            this.state.data=null;
+            this.state.score = [null,null,null,null];
+            this.setState(this.state);
+        }else{
+
+        }
+        alert(res.message)
+    },err=>{})
   }
   render() {
     return (
@@ -32,6 +91,10 @@ export class RaterGrade extends Component {
         className={[style.RaterGradeBox, "childcenter", "childcolumn"].join(
           " "
         )}>
+        {this.state.data?<div className={[style.RaterGradeBox, "childcenter", "childcolumn"].join(
+          " "
+        )}>
+
         <div
           className={[style.PageTitle, "childcenter"].join(" ")}
           style={{ backgroundImage: "url(" + button + ")" }}>
@@ -44,13 +107,13 @@ export class RaterGrade extends Component {
             <div
               className={style.UserRegion}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              上海大区
+              {this.state.data.region}
             </div>
 
             <div
               className={style.UserName}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              吴彦祖
+              {this.state.data.username}
             </div>
           </div>
           <div className={[style.BaseRow, "childcenter"].join(" ")}>
@@ -142,9 +205,11 @@ export class RaterGrade extends Component {
             </div>
           </div>
         </div>
-        <div className={[style.SubmitButton,'childcenter'].join(' ')}>
+        <div className={[style.SubmitButton,'childcenter'].join(' ')} onClick={this.submitScore}>
             提交
         </div>
+
+        </div>: <div className={[style.LoadingBox,'childcenter childcolumn'].join(' ')}><LoadingBox />还未开始打分</div> }
       </div>
     );
   }

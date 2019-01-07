@@ -5,7 +5,7 @@ import LOGO from "assets/LOGO.png";
 
 import SnatchAnswer from "./components/SnatchAnswer";
 import RotationAnswer from "./components/RotationAnswer";
-import RaterGrade from "./components/RaterGrade";
+// import RaterGrade from "./components/RaterGrade";
 
 
 import bg from "assets/bg.png";
@@ -57,9 +57,9 @@ export class OnUserUnControl extends Component {
       case 'rotationanswer':
         this.state.bgStatus = 1;
         return <RotationAnswer />;
-      case 'ratergrade':
-        this.state.bgStatus = 1;
-        return <RaterGrade />
+      // case 'ratergrade':
+      //   this.state.bgStatus = 1;
+      //   return <RaterGrade />
     }
     this.setState(this.state);
   }

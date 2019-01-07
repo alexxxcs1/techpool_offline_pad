@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { HashRouter,Route,Switch} from 'react-router-dom';
+import { HashRouter,Route,Switch,Redirect} from 'react-router-dom';
 import PropTypes from "prop-types";
 // import style from  './App.scss';
 import AlertBox from 'components/AlertBox'
 
 import Home from 'routes/Home'
+import RaterGrade from 'routes/RaterGrade'
 
 class App extends Component {
   constructor(props){
@@ -45,9 +46,10 @@ class App extends Component {
         <HashRouter >
           <div style={{height: '100%'}}>
               <Switch>
-                  
+                  <Route path='/ratergrade/:id' component={RaterGrade} />
                   {/* 首页 */}
-                  <Route path='/' component={Home} />
+                  <Route path='/userhome' component={Home} />
+                  <Redirect from="/" to="/userhome" />
                     
               </Switch>
           </div>

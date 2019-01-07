@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import style from "./Rank.scss";
+import {api} from 'common/app'
 
 import button from "assets/button.png";
 import LongScroll from "assets/LongScroll.png";
@@ -13,56 +14,81 @@ export class Rank extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        data:[],
         tableStatus:'person',
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.createTableChild = this.createTableChild.bind(this);
     this.ToggleTable = this.ToggleTable.bind(this);
+    this.getPersonRank = this.getPersonRank.bind(this);
+    this.getRegionRank = this.getRegionRank.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
   }
   componentDidMount() {
     this.refreshProps(this.props);
+    this.getPersonRank();
+  }
+  getPersonRank(){
+    let sessionid = JSON.parse(window.localStorage.uinfo).sessionid;
+    api.getTotleRank(sessionid).then(res=>{
+      console.log(res);
+      if (res.code == 200) {
+        this.state.data = res.result;
+      }else{
+        alert(res.message);
+      }
+      this.setState(this.state);
+    },err=>{
+
+    })
+  }
+  getRegionRank(){
+    let sessionid = JSON.parse(window.localStorage.uinfo).sessionid;
+    api.getRegionRank(sessionid).then(res=>{
+      console.log(res);
+      if (res.code == 200) {
+        this.state.data = res.result;
+      }else{
+        alert(res.message);
+      }
+      this.setState(this.state);
+    },err=>{
+
+    })
   }
   createTableChild() {
     let result = [];
-    for (let z = 0; z < 30; z++) {
+    for (let z = 0; z < this.state.data.length; z++) {
       result.push(
-        <div class={[style.TableRow, "childcenter"].join(" ")}>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+        <div className={[style.TableRow, "childcenter"].join(" ")} style={{'--index':z}}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")} style={{width:'22%'}}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              第{(z + 1).toLocaleString("zh-CN-u-nu-hanidec")}名
+              第{this.state.data[z].rank}名
             </div>
           </div>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")} style={{width:'22%'}}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {name[Math.floor(Math.random() * name.length)]}
-              {Math.floor(Math.random() * 9 + 1).toLocaleString(
-                "zh-CN-u-nu-hanidec"
-              )}
+              {this.state.data[z].username}
             </div>
           </div>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")} style={{width:'34%'}}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {Math.floor(Math.random() * 9 + 1).toLocaleString(
-                "zh-CN-u-nu-hanidec"
-              )}
-              {tittle[Math.floor(Math.random() * tittle.length)]}
-              {city[Math.floor(Math.random() * city.length)]}大区
+              {this.state.data[z].regionid}
             </div>
           </div>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")} style={{width:'22%'}}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {50000 - z * 10}分
+              {this.state.data[z].score}分
             </div>
           </div>
         </div>
@@ -72,32 +98,28 @@ export class Rank extends Component {
   }
   createRegionTableChild() {
     let result = [];
-    for (let z = 0; z < 30; z++) {
+    for (let z = 0; z < this.state.data.length; z++) {
       result.push(
-        <div class={[style.TableRow, "childcenter"].join(" ")}>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+        <div className={[style.TableRow, "childcenter"].join(" ")} style={{'--index':z}}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              第{(z + 1).toLocaleString("zh-CN-u-nu-hanidec")}名
+              第{this.state.data[z].rank}名
             </div>
           </div>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {Math.floor(Math.random() * 9 + 1).toLocaleString(
-                "zh-CN-u-nu-hanidec"
-              )}
-              {tittle[Math.floor(Math.random() * tittle.length)]}
-              {city[Math.floor(Math.random() * city.length)]}大区
+              {this.state.data[z].name}
             </div>
           </div>
-          <div class={[style.TableColumn, "childcenter"].join(" ")}>
+          <div className={[style.TableColumn, "childcenter"].join(" ")}>
             <div
-              class={[style.rowchild, "childcenter"].join(" ")}
+              className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {50000 - z * 10}分
+              {this.state.data[z].score}分
             </div>
           </div>
         </div>
@@ -107,12 +129,14 @@ export class Rank extends Component {
   }
   ToggleTable(){
       this.state.tableStatus = this.state.tableStatus=='person'?'region':'person';
+      this.state.data=[];
+      this.state.tableStatus == 'person'?this.getPersonRank():this.getRegionRank();
       this.setState(this.state); 
   }
   refreshProps(props) {}
   render() {
     return (
-      <div class={[style.RankBox, "childcenter", "childcolumn"].join(" ")}>
+      <div className={[style.RankBox, "childcenter", "childcolumn"].join(" ")}>
         <div
           className={[style.PageTitle, "childcenter"].join(" ")}
           style={{ backgroundImage: "url(" + button + ")" }}>
@@ -121,69 +145,69 @@ export class Rank extends Component {
         <div
           className={[style.RankBox, "childcenter"].join(" ")}
           style={{ backgroundImage: "url(" + LongScroll + ")" }}>
-          <div class={[style.RankDetial, "childcenter"].join(" ")}>
+          <div className={[style.RankDetial, "childcenter"].join(" ")}>
 
-            {this.state.tableStatus == 'person' ?<div class={[style.Table,'childcenter','childcolumn','childcontentstart'].join(' ')}>
-                    <div class={[style.TableRow,'childcenter'].join(' ')}>
+            {this.state.tableStatus == 'person' ?<div className={[style.Table,'childcenter','childcolumn','childcontentstart'].join(' ')}>
+                    <div className={[style.TableRow,'childcenter'].join(' ')}>
 
-                        <div class={[style.TableColumn,'childcenter'].join(' ')} >
-                            <div class={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
+                        <div className={[style.TableColumn,'childcenter'].join(' ')} style={{width:'22%'}}>
+                            <div className={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
                                 排名
                             </div>
                         </div>
-                        <div class={[style.TableColumn,'childcenter'].join(' ')} >
-                            <div class={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
+                        <div className={[style.TableColumn,'childcenter'].join(' ')} style={{width:'22%'}}>
+                            <div className={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
                                 姓名
                             </div>
                         </div>
-                        <div class={[style.TableColumn,'childcenter'].join(' ')} >
-                            <div class={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
+                        <div className={[style.TableColumn,'childcenter'].join(' ')} style={{width:'34%'}}>
+                            <div className={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
                                 所属大区
                             </div>
                         </div>
-                        <div class={[style.TableColumn,'childcenter'].join(' ')} >
-                            <div class={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
+                        <div className={[style.TableColumn,'childcenter'].join(' ')} style={{width:'22%'}}>
+                            <div className={[style.rowhead,'childcenter'].join(' ')} style={{backgroundImage:'url('+tablehead+')'}}>
                                 积分
                             </div>
                         </div>
 
                     </div>
-                    <div class={style.TableBody}>
+                    <div className={style.TableBody}>
                     {this.createTableChild()}
                     </div>
                 </div>:''}
 
             {this.state.tableStatus == 'region' ? <div
-              class={[
+              className={[
                 style.Table,
                 "childcenter",
                 "childcolumn",
                 "childcontentstart"
               ].join(" ")}>
-              <div class={[style.TableRow, "childcenter"].join(" ")}>
-                <div class={[style.TableColumn, "childcenter"].join(" ")}>
+              <div className={[style.TableRow, "childcenter"].join(" ")}>
+                <div className={[style.TableColumn, "childcenter"].join(" ")}>
                   <div
-                    class={[style.rowhead, "childcenter"].join(" ")}
+                    className={[style.rowhead, "childcenter"].join(" ")}
                     style={{ backgroundImage: "url(" + tablehead + ")" }}>
                     排名
                   </div>
                 </div>
-                <div class={[style.TableColumn, "childcenter"].join(" ")}>
+                <div className={[style.TableColumn, "childcenter"].join(" ")}>
                   <div
-                    class={[style.rowhead, "childcenter"].join(" ")}
+                    className={[style.rowhead, "childcenter"].join(" ")}
                     style={{ backgroundImage: "url(" + tablehead + ")" }}>
                     大区
                   </div>
                 </div>
-                <div class={[style.TableColumn, "childcenter"].join(" ")}>
+                <div className={[style.TableColumn, "childcenter"].join(" ")}>
                   <div
-                    class={[style.rowhead, "childcenter"].join(" ")}
+                    className={[style.rowhead, "childcenter"].join(" ")}
                     style={{ backgroundImage: "url(" + tablehead + ")" }}>
                     积分
                   </div>
                 </div>
               </div>
-              <div class={style.TableBody}>{this.createRegionTableChild()}</div>
+              <div className={style.TableBody}>{this.createRegionTableChild()}</div>
             </div>:''}
 
           </div>

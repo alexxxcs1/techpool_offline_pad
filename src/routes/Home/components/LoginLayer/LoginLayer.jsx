@@ -9,6 +9,8 @@ import slogan from "assets/slogan.png";
 import bg from "assets/bg.png";
 import button from "assets/button.png";
 
+import {api} from 'common/app'
+
 export class LoginLayer extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,7 @@ export class LoginLayer extends Component {
   }
   refreshProps(props) {}
   HandleLogin() {
+    
     if (!this.state.name||!this.state.id) {
       this.context.SetAlertOption({
         show: true,
@@ -35,7 +38,20 @@ export class LoginLayer extends Component {
         callback: () => {}
       });
     } else {
-      this.context.HandleLoginLayer(true);
+      let self = this;
+      api.UserLogin(this.state.name,this.state.id).then(res=>{
+        if (res.code==200) {
+          window.localStorage.uinfo = JSON.stringify({'sessionid':res.result.sessionid});
+          self.props.history.push('/userhome/home');
+        }else{
+          self.context.SetAlertOption({
+            show: true,
+            value: res.message,
+            callback: () => {}
+          });
+        }
+      },err=>{});
+      
     }
   }
   HandleInputValue(type, e) {

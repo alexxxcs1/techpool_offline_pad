@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import AskPost from './AskPost'
 
-const host = 'http://client.rup-china.com/CT_20180630/index.php/index/index/'
+const host = 'http://192.168.1.12/tianpu/index.php/mobile/'
 
 // 实例化 ajax请求对象
 const ajaxinstance = axios.create({
