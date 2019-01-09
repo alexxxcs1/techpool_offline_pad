@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import LongScroll from "assets/LongScroll.png";
 import ShortScroll from "assets/ShortScroll.png";
 import DarkBox from "components/DarkBox";
+import {api} from 'common/app'
 
 export class AnswerQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      data:null,
       selected: null,
       resultStatus:null,
     };
@@ -16,6 +18,7 @@ export class AnswerQuestion extends Component {
     this.SelectOption = this.SelectOption.bind(this);
     this.submit = this.submit.bind(this);
     this.returnToSnatch = this.returnToSnatch.bind(this);
+    this.createOption = this.createOption.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -23,23 +26,55 @@ export class AnswerQuestion extends Component {
   componentDidMount() {
     this.refreshProps(this.props);
   }
-  refreshProps(props) {}
+  refreshProps(props) {
+    this.state.data = props.data?props.data:this.state.data;
+    this.state.resultStatus = null;
+    this.state.resultStatus = null;
+    this.setState(this.state);
+  }
   SelectOption(index) {
     this.state.selected = index;
     this.setState(this.state);
   }
   submit() {
+    if(!this.state.data) return;
+    let sessionid = JSON.parse(window.localStorage.uinfo).sessionid;
+    let self = this;
     if (this.state.selected!=null) {
-        if(this.state.selected == 'A'){
-            this.state.resultStatus = true;
-        }else{
-            this.state.resultStatus = false;
-        }
+        
+        api.RotationQuestionAnswer(this.state.data.id, sessionid,this.state.selected).then(res=>{
+          if (res.code == 200) {
+            if(self.state.selected == self.state.data.success){
+              self.state.resultStatus = true;
+            }else{
+              self.state.resultStatus = false;
+            }
+            self.setState(this.state);
+          }else{
+            alert(res.message)
+          }
+        },err=>{})
     }
-    this.setState(this.state);
+    
   }
   returnToSnatch(){
       // this.context.HandleSnatchAnswerRoute(null);
+  }
+  createOption(){
+    if (!this.state.data) return;
+    let result = [];
+    for (const key in this.state.data.check) {
+      result.push(<div
+        className={[
+          style.OptionBox,
+          this.state.selected == key ? style.ActOption : "",
+          "childcenter childcolumn childcontentstart",
+        ].join(" ")}
+        onClick={this.SelectOption.bind(this, key)}>
+        {key}. {this.state.data.check[key]}
+      </div>)
+    }
+    return result;
   }
   render() {
     return [
@@ -66,7 +101,7 @@ export class AnswerQuestion extends Component {
         </div> */}
 
       </DarkBox>:''}
-        <div
+        {this.state.data?<div
           className={[
             style.QuestionDetial,
             "childcenter",
@@ -75,51 +110,16 @@ export class AnswerQuestion extends Component {
           ].join(" ")}>
           <div className={[style.AnswerTitle, "childcenter"].join(" ")}>
             <div className={[style.Title, "childcenter"].join(" ")}>
-              RE-LY研究中对多少亚洲亚组人群进行了分析？
+                {this.state.data.title}
             </div>
           </div>
           <div
-            className={[style.AnswerBoxGroup, "childcenter", "childstart"].join(
+            className={[style.AnswerBoxGroup, "childcenter"].join(
               " "
             )}>
-            <div
-              className={[
-                style.OptionBox,
-                this.state.selected == "A" ? style.ActOption : "",
-                "childcenter"
-              ].join(" ")}
-              onClick={this.SelectOption.bind(this, "A")}>
-              A. 2,782例
-            </div>
-            <div
-              className={[
-                style.OptionBox,
-                this.state.selected == "B" ? style.ActOption : "",
-                "childcenter"
-              ].join(" ")}
-              onClick={this.SelectOption.bind(this, "B")}>
-              B. 2,782例
-            </div>
-            <div
-              className={[
-                style.OptionBox,
-                this.state.selected == "C" ? style.ActOption : "",
-                "childcenter"
-              ].join(" ")}
-              onClick={this.SelectOption.bind(this, "C")}>
-              C. 2,782例
-            </div>
-            <div
-              className={[
-                style.OptionBox,
-                this.state.selected == "D" ? style.ActOption : "",
-                "childcenter"
-              ].join(" ")}
-              onClick={this.SelectOption.bind(this, "D")}>
-              D. 2,782例
-            </div>
+            {this.createOption()}
           </div>
-        </div>
+        </div>:''}
       </div>,
       <div
         className={[
@@ -130,13 +130,14 @@ export class AnswerQuestion extends Component {
         onClick={this.state.selected == null ? "" : this.submit}>
         提交
       </div>,
-      <div className={[style.UserScore,'childcenter','childcolumn'].join(' ')} style={{backgroundImage:'url('+ShortScroll+')'}}>
-        你当前的得分为:999999999分
-      </div>
+      // <div className={[style.UserScore,'childcenter','childcolumn'].join(' ')} style={{backgroundImage:'url('+ShortScroll+')'}}>
+      //   你当前的得分为:999999999分
+      // </div>
     ];
   }
 }
 AnswerQuestion.contextTypes = {
+  
   SetAlertOption: PropTypes.func,
   HandleSnatchAnswerRoute: PropTypes.func,
   QuestionID: PropTypes.number,

@@ -9,7 +9,7 @@ export class RotationAnswer extends Component {
 constructor(props) {
   super(props);
   this.state = {};
-     this.refreshProps = this.refreshProps.bind(this);
+  this.refreshProps = this.refreshProps.bind(this);
 }
 componentWillReceiveProps(nextprops) {
   this.refreshProps(nextprops);
@@ -28,12 +28,13 @@ render() {
           style={{ backgroundImage: "url(" + button + ")" }}>
           甲冠天下
         </div>
-        <AnswerQuestion />
+        <AnswerQuestion data={this.context.data}/>
     </div>
    )
    }
 }
 RotationAnswer.contextTypes = {
+    data:PropTypes.object,
     SetAlertOption: PropTypes.func
 };
 export default RotationAnswer

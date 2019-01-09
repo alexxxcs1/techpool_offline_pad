@@ -87,7 +87,7 @@
 
 .AnswerQuestionBox {
     width: 663px;
-    height: 450px;
+    min-height: 650px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
@@ -109,13 +109,15 @@
 
         .AnswerBoxGroup {
             width: 90%;
-            // flex-grow: 1;
+            height: 300px;
+            flex-grow: 1;
             flex-wrap: wrap;
             color: #000;
-
+            flex-shrink: 0;
             .OptionBox {
                 width: 50%;
-                height: 120px;
+                height: 50%;
+                flex-shrink: 0;
                 // background: #000;
                 font-size: 24px;
 

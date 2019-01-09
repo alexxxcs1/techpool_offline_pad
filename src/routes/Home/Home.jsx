@@ -15,7 +15,8 @@ export class Home extends Component {
       WebSocketStatus:false,
       ws_connection:null,
       isLogin: false,
-      onServerControl: false
+      onServerControl: false,
+      WebSocketData:null,
     };
     this.HandleLogin = this.HandleLogin.bind(this); //控制登录页展示
     this.HandleServerControl = this.HandleServerControl.bind(this); //用于websocket控制页面。
@@ -38,6 +39,8 @@ export class Home extends Component {
   componentDidMount() {
     this.isLogin();
     this.connectWebSocket();
+
+    
   }
   componentWillReceiveProps(){
     if(this.state.WebSocketStatus&&window.localStorage.uinfo){
@@ -56,12 +59,15 @@ export class Home extends Component {
     if (window.localStorage.uinfo) {
       let uinfo = JSON.parse(window.localStorage.uinfo);
       if (uinfo.sessionid) {
-        this.props.history.push('/userhome/home')
+        // this.props.history.push('/userhome/home')
+        this.state.isLogin = true;
       }else{
-        this.props.history.push('/userhome/login')
+        // this.props.history.push('/userhome/login')
+        this.state.isLogin = false;
       }
     }else{
-      this.props.history.push('/userhome/login')
+      // this.props.history.push('/userhome/login')
+      this.state.isLogin = false;
     }
     // api.UserisLogin().then(res=>{
     //   if (res.code == 200) {
@@ -123,10 +129,52 @@ export class Home extends Component {
           self.state.onServerControl = true;
           self.setState(self.state);
           break;
+        case 'lundaBegin':
+          self.context.SetAlertOption({
+            show: true,
+            value: data.message,
+            callback: () => {
+              
+            }
+          });
+          self.state.onServerControl = true;
+          self.setState(self.state);
+          break;
+        case 'lundaStart':
+          self.context.SetAlertOption({
+            show: true,
+            value: data.message,
+            callback: () => {
+              
+            }
+          });
+          self.state.onServerControl = true;
+          self.setState(self.state);
+          break;
+        case 'questionStart':
+          self.state.WebSocketData = {
+            route:'rotationanswer',
+            data:data.result,
+          }
+          self.state.onServerControl = true;
+          self.setState(self.state);
+          break;
+        case 'questionEnd':
+          self.state.WebSocketData = {
+            route:null,
+            data:null,
+          }
+          self.state.onServerControl = true;
+          self.setState(self.state);
+          break;
         case 'unControl':
           self.state.onServerControl = false;
           self.setState(self.state);
           break;
+        case 'loginOut':
+          window.localStorage.removeItem('uinfo');
+          self.state.isLogin = false;
+          self.setState(self.state);
         default:
           break;
       }
@@ -140,18 +188,18 @@ export class Home extends Component {
     return (
       <div className={style.Box}>
         {/* ----登录页---- */}
-        {/* {this.state.isLogin ? (
-          [this.state.onServerControl ? <OnUserUnControl /> : <OnUserControl />]
+        {this.state.isLogin ? (
+          [this.state.onServerControl ? <OnUserUnControl data={this.state.WebSocketData}/> : <OnUserControl />]
         ) : (
           <div className={style.FloatBox} style={{ zIndex: 2 }}>
             <LoginLayer />
           </div>
-        )} */}
+        )}
         {/* ----登录页---- */}
-        <Switch>
+        {/* <Switch>
           <Route path='/userhome/home' component={this.state.onServerControl?OnUserUnControl:OnUserControl} />
           <Route path='/userhome/login' component={LoginLayer} />
-        </Switch>
+        </Switch> */}
       </div>
     );
   }

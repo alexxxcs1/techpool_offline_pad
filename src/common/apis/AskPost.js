@@ -41,6 +41,13 @@ const AskPost = (ajaxinstance) => {
         }));
     }
 
+    //轮答答题
+    customer.RotationQuestionAnswer = (lqid,sessionid,checkit) => {
+        return ajaxinstance.post('user/questionsubimt', qs.stringify({
+            lqid,sessionid,checkit
+        }));
+    }
+
 
 
 

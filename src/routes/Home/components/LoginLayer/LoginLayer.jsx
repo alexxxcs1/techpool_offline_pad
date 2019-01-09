@@ -42,7 +42,7 @@ export class LoginLayer extends Component {
       api.UserLogin(this.state.name,this.state.id).then(res=>{
         if (res.code==200) {
           window.localStorage.uinfo = JSON.stringify({'sessionid':res.result.sessionid});
-          self.props.history.push('/userhome/home');
+          this.context.HandleLoginLayer(true)
         }else{
           self.context.SetAlertOption({
             show: true,

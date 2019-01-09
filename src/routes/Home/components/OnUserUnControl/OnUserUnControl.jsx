@@ -19,6 +19,7 @@ export class OnUserUnControl extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      data:null,
       bgStatus: 0,
       stageStatus: null
     };
@@ -28,16 +29,22 @@ export class OnUserUnControl extends Component {
   }
   getChildContext() {
     return {
-      HandleCustomRoute: this.HandleCustomRoute
+      HandleCustomRoute: this.HandleCustomRoute,
+      data:this.state.data,
     };
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
+    
   }
   componentDidMount() {
     this.refreshProps(this.props);
   }
-  refreshProps(props) {}
+  refreshProps(props) {
+    this.state.data = props.data?props.data.data:this.state.data;
+    this.state.stageStatus = props.data?props.data.route:this.state.stageStatus;
+    this.setState(this.state);
+  }
   customRoute() {
     switch (this.state.stageStatus) {
       default:
@@ -56,7 +63,7 @@ export class OnUserUnControl extends Component {
         return <SnatchAnswer />;
       case 'rotationanswer':
         this.state.bgStatus = 1;
-        return <RotationAnswer />;
+        return <RotationAnswer/>;
       // case 'ratergrade':
       //   this.state.bgStatus = 1;
       //   return <RaterGrade />
@@ -104,6 +111,7 @@ export class OnUserUnControl extends Component {
   }
 }
 OnUserUnControl.childContextTypes = {
-  HandleCustomRoute: PropTypes.func
+  HandleCustomRoute: PropTypes.func,
+  data: PropTypes.object,
 };
 export default OnUserUnControl;
