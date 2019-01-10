@@ -1,7 +1,6 @@
 .LoadingBox{
     width: 100px;
     height: 100px;
-
     // background-color: #fff;
 
     display: flex;
@@ -17,6 +16,8 @@
         background-color: rgba($color: #fff, $alpha: 0);
         position: absolute;
         border-radius: 100%;
+        top: 50%;
+        left: 50%;
         // box-shadow: #fff 0 0 10px;
 
         transform: rotate(calc(var(--n) * 30deg)) translateX(30px);

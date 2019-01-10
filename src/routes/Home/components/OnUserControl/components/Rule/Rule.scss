@@ -18,6 +18,7 @@
         box-shadow: rgba($color: #fff, $alpha: 0.2) 0 0 0 16px;
         margin: 16px;
         overflow: auto;
+        -webkit-overflow-scrolling: touch;
         img{
             width: 90%;
         }

@@ -42,7 +42,8 @@ export class LoginLayer extends Component {
       api.UserLogin(this.state.name,this.state.id).then(res=>{
         if (res.code==200) {
           window.localStorage.uinfo = JSON.stringify({'sessionid':res.result.sessionid});
-          this.context.HandleLoginLayer(true)
+          // this.context.HandleLoginLayer(true)
+          window.location.reload();
         }else{
           self.context.SetAlertOption({
             show: true,

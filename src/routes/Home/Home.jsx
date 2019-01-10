@@ -39,8 +39,6 @@ export class Home extends Component {
   componentDidMount() {
     this.isLogin();
     this.connectWebSocket();
-
-    
   }
   componentWillReceiveProps(){
     if(this.state.WebSocketStatus&&window.localStorage.uinfo){
@@ -98,9 +96,13 @@ export class Home extends Component {
         connection.send(JSON.stringify(strf)); 
       }
     };
+    connection.onclose = function () {
+      window.location.reload();
+    }
     //onerror
     connection.onerror = function (error) {
       console.log('WebSocket Error ' + error);
+      alert('WebSocket Error')
     };
     
     //to receive the message from server
@@ -108,7 +110,7 @@ export class Home extends Component {
       console.log('Server: ' + e.data);
       let data = JSON.parse(e.data);
       switch (data.action) {
-        case 'unloing':
+        case 'unlogin':
           self.context.SetAlertOption({
             show: true,
             value: data.message,
@@ -174,6 +176,17 @@ export class Home extends Component {
         case 'loginOut':
           window.localStorage.removeItem('uinfo');
           self.state.isLogin = false;
+          self.setState(self.state);
+        case 'loginOut':
+          window.localStorage.removeItem('uinfo');
+          self.state.isLogin = false;
+          self.setState(self.state);
+        case 'qiangdaBegin':
+          self.state.WebSocketData = {
+            route:'snatchanswer',
+            data:null,
+          }
+          self.state.onServerControl = true;
           self.setState(self.state);
         default:
           break;

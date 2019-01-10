@@ -48,6 +48,15 @@ const AskPost = (ajaxinstance) => {
         }));
     }
 
+    //抢答抢题目
+    customer.snatch = (sessionid) => {
+        return ajaxinstance.post('user/qiangda', qs.stringify({
+            sessionid
+        }));
+    }
+
+    
+
 
 
 

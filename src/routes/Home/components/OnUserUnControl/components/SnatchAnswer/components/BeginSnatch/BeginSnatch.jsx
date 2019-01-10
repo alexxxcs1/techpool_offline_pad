@@ -5,6 +5,7 @@ import finger from "assets/finger.png";
 import wardrum from "assets/wardrum.png";
 import dong from "assets/dong.png";
 import SelectQuestion from "../SelectQuestion";
+import {api} from 'common/app'
 
 export class BeginSnatch extends Component {
   constructor(props) {
@@ -25,23 +26,30 @@ export class BeginSnatch extends Component {
   }
   refreshProps(props) {}
   onHit() {
-    let self = this;
-    if(Math.random() > 0.5){if (Math.random() > 0.5) {
-      this.state.Snatched = true;
-      this.state.onHiting = false;
-      this.setState(this.state);
-    } else {
-      this.context.SetAlertOption({
-        show: true,
-        value: "很遗憾，您没有抢到",
-        callback: () => {
-          self.state.onHiting = false;
-          self.setState(this.state);
-        }
-      });
-    }}
-    this.state.onHiting = true;
-    this.setState(this.state);
+    api.snatch(JSON.parse(window.localStorage.uinfo).sessionid).then(res=>{
+      console.log(res);
+      
+    },err=>{
+      console.log(err);
+      
+    })
+    // let self = this;
+    // if(Math.random() > 0.5){if (Math.random() > 0.5) {
+    //   this.state.Snatched = true;
+    //   this.state.onHiting = false;
+    //   this.setState(this.state);
+    // } else {
+    //   this.context.SetAlertOption({
+    //     show: true,
+    //     value: "很遗憾，您没有抢到",
+    //     callback: () => {
+    //       self.state.onHiting = false;
+    //       self.setState(this.state);
+    //     }
+    //   });
+    // }}
+    // this.state.onHiting = true;
+    // this.setState(this.state);
   }
   JumpToAnswer(questionid){
       

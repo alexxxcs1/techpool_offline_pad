@@ -51,7 +51,7 @@ export class OnUserUnControl extends Component {
       case null:
         this.state.bgStatus = 0;
         return (
-          <div className={style.Loading}>
+          <div className={[style.Loading, "childcenter","childcolumn"].join(" ")}>
             <LoadingBox />
             <div className={[style.WaitTips, "childcenter"].join(" ")}>
               请稍等
