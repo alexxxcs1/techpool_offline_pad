@@ -10,6 +10,29 @@
         font-weight: bold;
         word-break: break-all;
     }
-
+    
+    .AlertBox{
+        width: 400px;
+        position: relative;
+        background: #eee;
+        box-shadow: rgba($color: #eee, $alpha: .4) 0 0 0 22px;
+        border-radius: 7px 14px;
+        z-index: 99;
+        .AlertInfo{
+            width: 90%;
+            margin-top: 16px;
+            min-height: 100px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .Button{
+            width: 111px;
+            height: 30px;
+            background: #fff;
+            border-radius: 2px;
+            margin: 16px 0px;
+            font-size: 22px;
+        }
+    }
     
 }

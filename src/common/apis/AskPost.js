@@ -54,6 +54,20 @@ const AskPost = (ajaxinstance) => {
             sessionid
         }));
     }
+    //抢答提交题目
+    customer.snatchSubmit = (qqid,num,sessionid) => {
+        return ajaxinstance.post('user/qiangdaSubmit', qs.stringify({
+            qqid,num,sessionid
+        }));
+    }
+    //抢答提交答案
+    customer.snatchSubmitAnswer = (sessionid,qqid,checkit) => {
+        return ajaxinstance.post('user/qiangdaUserSave', qs.stringify({
+            sessionid,qqid,checkit
+        }));
+    }
+    
+    
 
     
 

@@ -88,7 +88,7 @@ export class Rank extends Component {
             <div
               className={[style.rowchild, "childcenter"].join(" ")}
               style={{ backgroundImage: "url(" + tablechild + ")" }}>
-              {this.state.data[z].score}分
+              {this.state.data[z].count_score}分
             </div>
           </div>
         </div>

@@ -12,7 +12,8 @@ export class BeginSnatch extends Component {
     super(props);
     this.state = {
       Snatched: false,
-      onHiting: false
+      onHiting: false,
+      snatchedQuestion:[],
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.onHit = this.onHit.bind(this);
@@ -24,11 +25,32 @@ export class BeginSnatch extends Component {
   componentDidMount() {
     this.refreshProps(this.props);
   }
-  refreshProps(props) {}
+  refreshProps(props) {
+    let data = props.data;
+    if (!data) return;
+    this.state.Snatched = true;
+    this.state.snatchedQuestion = data;
+    this.setState(this.state);
+  }
   onHit() {
+    let self = this;
+    this.state.onHiting = true;
+    this.setState(this.state);
     api.snatch(JSON.parse(window.localStorage.uinfo).sessionid).then(res=>{
-      console.log(res);
-      
+      // if (res.code == 200) {
+
+      // }else if(res.code == 4001){
+      //   // this.context.SetAlertOption({
+      //   //   show: true,
+      //   //   value: "很遗憾，您没有抢到",
+      //   //   callback: () => {
+      //   //     self.state.onHiting = false;
+      //   //     self.setState(this.state);
+      //   //   }
+      //   // });
+      // }
+      self.state.onHiting = false;
+      self.setState(this.state);
     },err=>{
       console.log(err);
       
@@ -51,13 +73,9 @@ export class BeginSnatch extends Component {
     // this.state.onHiting = true;
     // this.setState(this.state);
   }
-  JumpToAnswer(questionid){
+  JumpToAnswer(index,questionid){
       
-      this.state.Snatched = false;
-      this.setState(this.state);
-      this.context.HandleSnatchAnswerRoute('answer',{
-        SelectQuestionID:questionid
-      });
+
   }
   render() {
     return (
@@ -65,7 +83,6 @@ export class BeginSnatch extends Component {
         className={[style.BeginSnatchBox, "childcenter", "childcolumn"].join(
           " "
         )}>
-        {this.state.Snatched?<SelectQuestion callback={this.JumpToAnswer}/>:''}
         <div className={style.TipsRow}>点击鼓面进行抢答</div>
         <div
           className={[

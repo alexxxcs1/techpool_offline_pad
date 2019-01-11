@@ -60,7 +60,7 @@ export class OnUserUnControl extends Component {
         );
       case "snatchanswer":
         this.state.bgStatus = 1;
-        return <SnatchAnswer />;
+        return <SnatchAnswer data={this.state.data}/>;
       case 'rotationanswer':
         this.state.bgStatus = 1;
         return <RotationAnswer/>;

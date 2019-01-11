@@ -13,6 +13,7 @@ export class AnswerQuestion extends Component {
       data:null,
       selected: null,
       resultStatus:null,
+      userResult:null,
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.SelectOption = this.SelectOption.bind(this);
@@ -28,8 +29,9 @@ export class AnswerQuestion extends Component {
   }
   refreshProps(props) {
     this.state.data = props.data?props.data:this.state.data;
-    this.state.resultStatus = null;
-    this.state.resultStatus = null;
+    this.state.resultStatus = props.data?props.data.userResult:this.state.data;
+    console.log(this.state.data);
+    
     this.setState(this.state);
   }
   SelectOption(index) {
@@ -41,14 +43,16 @@ export class AnswerQuestion extends Component {
     let sessionid = JSON.parse(window.localStorage.uinfo).sessionid;
     let self = this;
     if (this.state.selected!=null) {
-        
+        this.state.onAjax = true;
+        this.setState(this.state);
         api.RotationQuestionAnswer(this.state.data.id, sessionid,this.state.selected).then(res=>{
           if (res.code == 200) {
             if(self.state.selected == self.state.data.success){
-              self.state.resultStatus = true;
+              self.state.resultStatus = 'success';
             }else{
-              self.state.resultStatus = false;
+              self.state.resultStatus = 'error';
             }
+            self.state.onAjax = false;
             self.setState(this.state);
           }else{
             alert(res.message)
@@ -68,7 +72,7 @@ export class AnswerQuestion extends Component {
         className={[
           style.OptionBox,
           this.state.selected == key ? style.ActOption : "",
-          "childcenter childcolumn childcontentstart",
+          "childcenter childcontentstart",
         ].join(" ")}
         onClick={this.SelectOption.bind(this, key)}>
         {key}. {this.state.data.check[key]}
@@ -83,16 +87,16 @@ export class AnswerQuestion extends Component {
         style={{ backgroundImage: "url(" + LongScroll + ")" }}>
         {this.state.resultStatus != null ? <DarkBox>
 
-        <div className={[style.ResultBox,this.state.resultStatus==false?style.resultErro:'','childcenter','childcolumn','childcontentstart'].join(' ')}>
+        <div className={[style.ResultBox,this.state.resultStatus=='error'?style.resultErro:'','childcenter','childcolumn','childcontentstart'].join(' ')}>
           <div className={style.TitleBox}>
             <div className={style.Tittleleft} />
-            <div className={style.TittleValue}>{this.state.resultStatus==true?'回答正确':'回答错误'}</div>
+            <div className={style.TittleValue}>{this.state.resultStatus=='success'?'回答正确':'回答错误'}</div>
             <div className={style.Tittleright} />
           </div>
 
           <div className={[style.ResultValue,'childcenter','childcolumn'].join(' ')}>
-            <div>{this.state.resultStatus==true?'恭喜您':'很遗憾'}!</div>
-            <div>{this.state.resultStatus==true?'回答正确':'回答错误'}</div>
+            <div>{this.state.resultStatus=='success'?'恭喜您':'很遗憾'}!</div>
+            <div>{this.state.resultStatus=='success'?'回答正确':'回答错误'}</div>
           </div>
           
         </div>
@@ -114,7 +118,7 @@ export class AnswerQuestion extends Component {
             </div>
           </div>
           <div
-            className={[style.AnswerBoxGroup, "childcenter"].join(
+            className={[style.AnswerBoxGroup, "childcenter childcontentstart"].join(
               " "
             )}>
             {this.createOption()}
@@ -127,7 +131,7 @@ export class AnswerQuestion extends Component {
           this.state.selected == null ? style.unAct : "",
           "childcenter"
         ].join(" ")}
-        onClick={this.state.selected == null ? "" : this.submit}>
+        onClick={this.state.selected == null ? "" : (this.state.onAjax?'':this.submit)}>
         提交
       </div>,
       // <div className={[style.UserScore,'childcenter','childcolumn'].join(' ')} style={{backgroundImage:'url('+ShortScroll+')'}}>

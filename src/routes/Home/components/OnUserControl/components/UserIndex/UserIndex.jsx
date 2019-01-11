@@ -67,7 +67,7 @@ render() {
                         </div>
                         <div className={[style.DataBox,'childcenter','childcolumn','childcontentstart'].join(' ')}>
                             <div>积分</div>
-                            <div>{this.state.userinfo.score}分</div>
+                            <div>{this.state.userinfo.count_score}分</div>
                         </div>
                         <div className={[style.DataBox,'childcenter','childcolumn','childcontentstart'].join(' ')}>
                             <div>个人排行</div>

@@ -4,6 +4,11 @@
     background: #fff;
     border-radius: 17px;
     box-shadow: rgba($color: #fff, $alpha: 0.4) 0 0 0 17px;
+
+    .isSelectBox{
+        font-size: 37px;
+        color: #b3b3b3;
+    }
     .SelectTitle {
         width: 100%;
         font-size: 37px;
@@ -36,6 +41,9 @@
         }
         .ActQuestionButton{
             box-shadow: #bb7a3c 0 0 0 1px inset, #fff 0 0 0 2px inset,#bb7a3c 0 0 10px 2px;
+        }
+        .CantSelect{
+            filter: grayscale(100%);
         }
     }
 

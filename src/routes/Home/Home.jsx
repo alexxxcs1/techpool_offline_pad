@@ -110,6 +110,7 @@ export class Home extends Component {
       console.log('Server: ' + e.data);
       let data = JSON.parse(e.data);
       switch (data.action) {
+        
         case 'unlogin':
           self.context.SetAlertOption({
             show: true,
@@ -154,6 +155,7 @@ export class Home extends Component {
           self.setState(self.state);
           break;
         case 'questionStart':
+          data.result.userResult = data.check;
           self.state.WebSocketData = {
             route:'rotationanswer',
             data:data.result,
@@ -172,22 +174,28 @@ export class Home extends Component {
         case 'unControl':
           self.state.onServerControl = false;
           self.setState(self.state);
+          self.context.SetAlertOption({
+            show: false,
+            value: null,
+            callback: () => {
+              
+            }
+          });
           break;
         case 'loginOut':
           window.localStorage.removeItem('uinfo');
           self.state.isLogin = false;
           self.setState(self.state);
-        case 'loginOut':
-          window.localStorage.removeItem('uinfo');
-          self.state.isLogin = false;
-          self.setState(self.state);
+          break
         case 'qiangdaBegin':
           self.state.WebSocketData = {
             route:'snatchanswer',
-            data:null,
+            data:data.result,
+            step:data.step
           }
           self.state.onServerControl = true;
           self.setState(self.state);
+          break
         default:
           break;
       }
