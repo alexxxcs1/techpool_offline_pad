@@ -79,7 +79,7 @@ export class Home extends Component {
     // });
   }
   connectWebSocket(){
-    let connection = new WebSocket('ws://192.168.1.12:8282');
+    let connection = new WebSocket('ws://192.168.0.100:8282');
     this.state.ws_connection = connection;
     this.setState(this.state);
     let self = this;
