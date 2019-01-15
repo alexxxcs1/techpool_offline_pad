@@ -102,8 +102,9 @@
             .Title {
                 width: 90%;
                 min-height: 100px;
-                font-size: 24px;
+                font-size: 22px;
                 font-weight: bold;
+                word-break: break-all;
             }
         }
 
@@ -118,7 +119,7 @@
                 width: 100%;
                 flex-shrink: 0;
                 // background: #000;
-                font-size: 24px;
+                font-size: 21px;
 
                 .Key {
                     width: 38px;

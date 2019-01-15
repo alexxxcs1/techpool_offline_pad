@@ -52,11 +52,12 @@ export class AnswerQuestion extends Component {
             }else{
               self.state.resultStatus = 'error';
             }
-            self.state.onAjax = false;
-            self.setState(this.state);
+            
           }else{
             alert(res.message)
           }
+          self.state.onAjax = false;
+            self.setState(this.state);
         },err=>{})
     }
     

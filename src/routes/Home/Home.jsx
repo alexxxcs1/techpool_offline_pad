@@ -79,7 +79,7 @@ export class Home extends Component {
     // });
   }
   connectWebSocket(){
-    let connection = new WebSocket('ws://192.168.0.100:8282');
+    let connection = new WebSocket('ws://192.168.10.2:8282');
     this.state.ws_connection = connection;
     this.setState(this.state);
     let self = this;
@@ -102,7 +102,7 @@ export class Home extends Component {
     //onerror
     connection.onerror = function (error) {
       console.log('WebSocket Error ' + error);
-      alert('WebSocket Error')
+      alert('网络连接失败，请刷新重试')
     };
     
     //to receive the message from server

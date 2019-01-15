@@ -6,7 +6,7 @@ import {api} from 'common/app'
 import style from './UserIndex.scss'
 import LongScroll from 'assets/LongScroll.png'
 import button from 'assets/button.png'
-import tmp_headshot from 'assets/tmp_headshot.jpg'
+import tmp_headshot from 'assets/tmp_headshot.png'
 
   
 export class UserIndex extends Component {
@@ -50,7 +50,7 @@ render() {
         <div className={[style.InfoBox,'childcenter'].join(' ')} style={{backgroundImage:'url('+LongScroll+')'}}>
             {this.state.userinfo?<div className={[style.InfoDetial,'childcenter','childcolumn'].join(' ')}>
                 <div className={style.HeadShot}>
-                    <img src={this.state.userinfo.avatarUrl} alt=""/>
+                    <img src={tmp_headshot} alt=""/>
                 </div>
                 <div className={style.UserName}>{this.state.userinfo.username}</div>
                 <div className={[style.UserTitle,'childcenter'].join(' ')}>{this.state.userinfo.scorename}</div>

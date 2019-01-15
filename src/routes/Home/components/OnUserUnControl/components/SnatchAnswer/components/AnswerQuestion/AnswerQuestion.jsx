@@ -114,7 +114,7 @@ export class AnswerQuestion extends Component {
             className={[style.AnswerBoxGroup, "childcenter", "childcolumn"].join(
               " "
             )}>
-            <div
+            {this.state.data.question.check['D']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['A']? style.ActOption : "",
@@ -122,8 +122,8 @@ export class AnswerQuestion extends Component {
               ].join(" ")}
               onClick={this.SelectOption.bind(this, "A")}>
               A.{this.state.data.question.check['A']}
-            </div>
-            <div
+            </div>:''}
+            {this.state.data.question.check['D']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['B']? style.ActOption : "",
@@ -131,8 +131,8 @@ export class AnswerQuestion extends Component {
               ].join(" ")}
               onClick={this.SelectOption.bind(this, "B")}>
               B. {this.state.data.question.check['B']}
-            </div>
-            <div
+            </div>:''}
+            {this.state.data.question.check['D']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['C']? style.ActOption : "",
@@ -140,8 +140,8 @@ export class AnswerQuestion extends Component {
               ].join(" ")}
               onClick={this.SelectOption.bind(this, "C")}>
               C. {this.state.data.question.check['C']}
-            </div>
-            <div
+            </div>:''}
+            {this.state.data.question.check['D']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['D']? style.ActOption : "",
@@ -149,7 +149,7 @@ export class AnswerQuestion extends Component {
               ].join(" ")}
               onClick={this.SelectOption.bind(this, "D")}>
               D. {this.state.data.question.check['D']}
-            </div>
+            </div>:''}
           </div>
         </div>:''}
       </div>,

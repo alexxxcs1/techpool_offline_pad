@@ -36,7 +36,7 @@ export class RaterGrade extends Component {
     this.setState(this.state);
   }
   connectWebSocket(){
-    let connection = new WebSocket('ws://192.168.1.12:8282');
+    let connection = new WebSocket('ws://192.168.10.2:8282');
     this.state.ws_connection = connection;
     this.setState(this.state);
     let self = this;
@@ -49,7 +49,9 @@ export class RaterGrade extends Component {
     connection.onerror = function (error) {
       console.log('WebSocket Error ' + error);
     };
-    
+    connection.onclose = function () {
+        window.location.reload();
+    }
     //to receive the message from server
     connection.onmessage = function (e) {
       console.log('Server: ' + e.data);
