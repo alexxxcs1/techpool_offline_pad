@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { HashRouter,Route,Switch,Redirect} from 'react-router-dom';
 import PropTypes from "prop-types";
 // import style from  './App.scss';
+import FastClick from 'fastclick'
+
 import AlertBox from 'components/AlertBox'
 
 import Home from 'routes/Home'
@@ -39,9 +41,12 @@ class App extends Component {
     }
     this.setState(this.state);
   }
+  componentDidMount(){
+    FastClick.attach(document.body);
+  }
   render() {
     return (
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%'}} ref='maindiv'>
         {this.state.AlertOption.show?<AlertBox option={this.state.AlertOption}/>:''}
         <HashRouter >
           <div style={{height: '100%'}}>

@@ -10,6 +10,7 @@ export class AnswerQuestion extends Component {
     super(props);
     this.state = {
       selected: {A:false,B:false,C:false,D:false},
+      onAjax :false,
       resultStatus:null,
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -27,10 +28,10 @@ export class AnswerQuestion extends Component {
     this.state.data = props.data?props.data:this.state.data;
     this.state.resultStatus = props.data?props.data.userResult:this.state.data;
     console.log(this.state.data);
-    
     this.setState(this.state);
   }
   SelectOption(index) {
+    if(this.state.onAjax) return;
     this.state.selected[index] = !this.state.selected[index];
     this.setState(this.state);
   }
@@ -42,28 +43,19 @@ export class AnswerQuestion extends Component {
             result = result+''+key
           }
         }
-        if(result == this.state.data.question.success){
-            api.snatchSubmitAnswer(JSON.parse(window.localStorage.uinfo).sessionid,this.state.data.question.id,result).then(res=>{
-              if (res.code==200) {
-                // this.state.resultStatus = true;
-                // this.setState(this.state);
-              }
-            },err=>{
-              console.log(err);
-              
-            })
-            
-        }else{
+        this.state.onAjax = true;
             api.snatchSubmitAnswer(JSON.parse(window.localStorage.uinfo).sessionid,this.state.data.question.id,result).then(res=>{
               if (res.code==200) {
                 // this.state.resultStatus = false;
-                // this.setState(this.state);
+                this.state.resultStatus = res.result;
+                this.state.onAjax = false;
+                this.setState(this.state);
               }
             },err=>{
               console.log(err);
               
             })
-        }
+        
     }
     this.setState(this.state);
   }
@@ -114,7 +106,7 @@ export class AnswerQuestion extends Component {
             className={[style.AnswerBoxGroup, "childcenter", "childcolumn"].join(
               " "
             )}>
-            {this.state.data.question.check['D']?<div
+            {this.state.data.question.check['A']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['A']? style.ActOption : "",
@@ -123,7 +115,7 @@ export class AnswerQuestion extends Component {
               onClick={this.SelectOption.bind(this, "A")}>
               A.{this.state.data.question.check['A']}
             </div>:''}
-            {this.state.data.question.check['D']?<div
+            {this.state.data.question.check['B']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['B']? style.ActOption : "",
@@ -132,7 +124,7 @@ export class AnswerQuestion extends Component {
               onClick={this.SelectOption.bind(this, "B")}>
               B. {this.state.data.question.check['B']}
             </div>:''}
-            {this.state.data.question.check['D']?<div
+            {this.state.data.question.check['C']?<div
               className={[
                 style.OptionBox,
                 this.state.selected['C']? style.ActOption : "",

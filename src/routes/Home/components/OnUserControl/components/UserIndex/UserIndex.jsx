@@ -73,11 +73,11 @@ render() {
                             <div>个人排行</div>
                             <div>第{this.state.userinfo.totle_rank}名</div>
                         </div>
-                        <div className={[style.DataBox,'childcenter','childcolumn','childcontentstart'].join(' ')}>
+                        <div className={[style.DataBox,style.dobuleWidth,'childcenter','childcolumn','childcontentstart'].join(' ')}>
                             <div>{this.state.userinfo.regionid}排名</div>
                             <div>第{this.state.userinfo.region_rank}名</div>
                         </div>
-                        <div className={[style.DataBox,'childcenter','childcolumn','childcontentstart'].join(' ')}></div>
+                        {/* <div className={[style.DataBox,'childcenter','childcolumn','childcontentstart'].join(' ')}></div> */}
                     </div>
                 </div>
             </div>:''}

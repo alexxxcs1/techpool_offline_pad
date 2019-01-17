@@ -46,13 +46,18 @@ export class SelectQuestion extends Component {
     return result;
   }
   select(index,id) {
+    if(this.state.onAjax) return;
     this.state.selected = index-1;
     this.state.selectedid = id;
     this.setState(this.state);
   }
   submit() {
+    if(this.state.onAjax) return;
+    this.state.onAjax = true;
+    this.setState(this.state);
     api.snatchSubmit(this.state.questionlist[this.state.selected].id,this.state.questionlist[this.state.selected].num,JSON.parse(window.localStorage.uinfo).sessionid).then(res=>{
       if (res.code == 200) {
+        this.state.onAjax = false;
         this.state.isSelected = res.num;
         this.setState(this.state);
       }
@@ -84,7 +89,7 @@ export class SelectQuestion extends Component {
           <div
             className={[style.NextButton,this.state.selected!=null?'':style.unActButton, "childcenter"].join(" ")}
             onClick={this.state.selected!=null?this.submit:''}>
-            提交
+            {this.state.onAjax? '提交中...':'提交'}
           </div>]}
         </div>
       </DarkBox>

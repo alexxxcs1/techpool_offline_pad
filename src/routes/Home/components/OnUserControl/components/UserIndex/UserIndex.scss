@@ -59,13 +59,19 @@
                     width: 100%;
                     height: calc(100% - 40px);
                     flex-wrap: wrap;
+                    .dobuleWidth{
+                        width: calc(100% / 3 * 2);
+                        flex-grow: 1;
+                    }
                     .DataBox{
                         width: calc(100% / 3);
+                        flex-shrink: 0;
                         height: 50%;
                         font-size: 20px;
 
                         div:nth-child(1){
-                            color:#dba169
+                            color:#dba169;
+                            font-size: 18px;
                         }
                     }
                 }

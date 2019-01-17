@@ -13,6 +13,7 @@ export class BeginSnatch extends Component {
     this.state = {
       Snatched: false,
       onHiting: false,
+      onAjax:false,
       snatchedQuestion:[],
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -35,6 +36,8 @@ export class BeginSnatch extends Component {
   onHit() {
     let self = this;
     this.state.onHiting = true;
+    // if (this.state.onAjax) return;
+    this.state.onAjax = true;
     this.setState(this.state);
     api.snatch(JSON.parse(window.localStorage.uinfo).sessionid).then(res=>{
       // if (res.code == 200) {
@@ -49,6 +52,7 @@ export class BeginSnatch extends Component {
       //   //   }
       //   // });
       // }
+      self.state.onAjax = false;
       self.state.onHiting = false;
       self.setState(this.state);
     },err=>{
